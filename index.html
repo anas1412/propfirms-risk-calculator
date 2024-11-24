@@ -19,6 +19,9 @@
             transform: scale(1.02);
             transition: transform 0.3s ease;
         }
+        .concept-card {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
     </style>
 </head>
 <body class="gradient-bg min-h-screen text-gray-800">
@@ -76,17 +79,49 @@
                         0.00%
                     </div>
                 </div>
+
+                <!-- Quick Reference -->
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <div class="grid grid-cols-3 gap-4 text-center text-sm text-gray-600">
+                        <div>Conservative: 0.5%</div>
+                        <div>Normal: 1%</div>
+                        <div>Aggressive: 2%</div>
+                    </div>
+                    <div class="text-center text-sm text-gray-600 mt-2">
+                        Maximum risk capped at 4%
+                    </div>
+                </div>
             </div>
 
-            <!-- Information Card -->
-            <div class="card p-6">
-                <h3 class="text-lg font-semibold mb-2">About the Calculator</h3>
-                <ul class="space-y-2 text-sm text-gray-600">
-                    <li>• Conservative base risk: 0.5%</li>
-                    <li>• Normal base risk: 1%</li>
-                    <li>• Aggressive base risk: 2%</li>
-                    <li>• Maximum risk is capped at 4%</li>
-                </ul>
+            <!-- Expandable Info Section -->
+            <div class="space-y-4">
+                <button onclick="toggleInfo()" class="w-full flex items-center justify-between p-4 bg-white bg-opacity-75 rounded-lg hover:bg-opacity-90 transition-all duration-200">
+                    <span class="font-semibold text-gray-700">Learn About the Method</span>
+                    <svg id="infoArrow" class="w-5 h-5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                
+                <div id="infoContent" class="hidden">
+                    <div class="card p-6">
+                        <div class="space-y-4">
+                            <div>
+                                <h3 class="font-semibold text-blue-600">Kelly Criterion</h3>
+                                <p class="text-gray-600">A mathematical formula that helps determine the optimal size of trades. It suggests betting more when you have an edge and less when uncertainty is high, helping to maximize long-term growth while minimizing risk of ruin.</p>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-blue-600">Compound Effect</h3>
+                                <p class="text-gray-600">This calculator considers how your previous performance affects future risk. When you're profitable, you can gradually increase risk, but during drawdowns, it automatically reduces risk to protect your capital. This creates a snowball effect for your winners while protecting you during losing streaks.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright Footer -->
+            <div class="text-center text-gray-300 mt-8">
+                <p>© 2024 Created by <a href="https://anas1412.github.io/" class="text-blue-400 hover:text-blue-300 underline" target="_blank">anas1412</a></p>
+                <p class="text-sm mt-2">Powered by Kelly Criterion and Compound Effect principles</p>
             </div>
         </div>
     </div>
@@ -94,6 +129,13 @@
     <script>
         let selectedRiskPreference = 'normal';
         let baseRisk = 1;
+
+        function toggleInfo() {
+            const content = document.getElementById('infoContent');
+            const arrow = document.getElementById('infoArrow');
+            content.classList.toggle('hidden');
+            arrow.classList.toggle('rotate-180');
+        }
 
         function setRiskPreference(preference) {
             selectedRiskPreference = preference;
