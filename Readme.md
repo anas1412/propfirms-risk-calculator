@@ -3,7 +3,7 @@
 A modern, user-friendly calculator that helps prop traders optimize their position sizing based on the Kelly Criterion and compound growth principles.
 
 ## 🌟 Live Demo
-Visit the calculator: [https://anas1412.github.io/risk-calculator](https://anas1412.github.io/risk-calculator)
+Visit the calculator: [https://anas1412.github.io/propfirms-risk-calculator/](https://anas1412.github.io/propfirms-risk-calculator/)
 
 ## 📝 Description
 This risk calculator helps traders determine optimal position sizes based on their current performance and risk tolerance. It implements a modified version of the Kelly Criterion that accounts for:
