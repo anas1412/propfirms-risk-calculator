@@ -22,6 +22,17 @@
         .concept-card {
             background-color: rgba(255, 255, 255, 0.9);
         }
+        /* Ensure mobile responsiveness for buttons */
+        .risk-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .risk-buttons button {
+            width: 100%;
+            max-width: 120px;
+        }
     </style>
 </head>
 <body class="gradient-bg min-h-screen text-gray-800">
@@ -59,14 +70,14 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">
                         Risk Preference
                     </label>
-                    <div class="grid grid-cols-3 gap-4">
-                        <button onclick="setRiskPreference('conservative')" id="conservative" class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <div class="risk-buttons">
+                        <button onclick="setRiskPreference('conservative')" id="conservative" class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
                             Conservative
                         </button>
-                        <button onclick="setRiskPreference('normal')" id="normal" class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button onclick="setRiskPreference('normal')" id="normal" class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
                             Normal
                         </button>
-                        <button onclick="setRiskPreference('aggressive')" id="aggressive" class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button onclick="setRiskPreference('aggressive')" id="aggressive" class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
                             Aggressive
                         </button>
                     </div>
@@ -122,6 +133,7 @@
             <div class="text-center text-gray-300 mt-8">
                 <p>© 2024 Created by <a href="https://anas1412.github.io/" class="text-blue-400 hover:text-blue-300 underline" target="_blank">anas1412</a></p>
                 <p class="text-sm mt-2">Powered by Kelly Criterion and Compound Effect principles</p>
+                <p class="text-sm mt-2">Read my article on this tool: <a href="https://anas1412.github.io/post/20241124/" class="text-blue-400 hover:text-blue-300 underline" target="_blank">Click here</a></p>
             </div>
         </div>
     </div>
@@ -165,24 +177,18 @@
         }
 
         function calculateRisk(baseRisk, profitPercentage, drawdownPercentage) {
-            const riskPercentage = baseRisk * (1 + (profitPercentage - drawdownPercentage) * (0.1 * (1 + 3 * (profitPercentage / 10))));
+            const riskPercentage = baseRisk * (1 + (profitPercentage - drawdownPercentage) * (0.1 * (1 + 3 * (profitPercentage / 10)))); 
             return Math.min(riskPercentage, 4);
         }
 
         function calculateAndDisplayRisk() {
             const capitalStatus = parseFloat(document.getElementById('capitalStatus').value) || 0;
-            const profitPercentage = Math.max(0, capitalStatus);
-            const drawdownPercentage = Math.max(0, -capitalStatus);
-            
-            const risk = calculateRisk(baseRisk, profitPercentage, drawdownPercentage);
-            document.getElementById('riskResult').textContent = `${risk.toFixed(2)}%`;
+            const calculatedRisk = calculateRisk(baseRisk, capitalStatus, 0);
+            document.getElementById('riskResult').textContent = calculatedRisk.toFixed(2) + "%";
         }
 
-        // Add event listeners
         document.getElementById('capitalStatus').addEventListener('input', calculateAndDisplayRisk);
-        
-        // Set initial state
-        setRiskPreference('normal');
+        setRiskPreference(selectedRiskPreference);
     </script>
 </body>
 </html>
