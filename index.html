@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prop Firm Risk Calculator</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+        }
+        .card {
+            backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(255, 255, 255, 0.75);
+            border-radius: 12px;
+            border: 1px solid rgba(209, 213, 219, 0.3);
+        }
+        .input-focused {
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen text-gray-800">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-white mb-2">Prop Firm Risk Calculator</h1>
+                <p class="text-gray-300">Calculate your optimal trading risk based on performance</p>
+            </div>
+
+            <!-- Main Calculator Card -->
+            <div class="card p-6 mb-6">
+                <!-- Capital Status Input -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Current Capital Status (%)
+                    </label>
+                    <div class="relative">
+                        <input 
+                            type="number" 
+                            id="capitalStatus"
+                            step="0.1"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Enter percentage (e.g., 5 for +5%, -2 for -2%)"
+                        >
+                    </div>
+                    <p class="text-sm text-gray-500 mt-1">
+                        Positive for profit, negative for drawdown
+                    </p>
+                </div>
+
+                <!-- Risk Preference Selection -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Risk Preference
+                    </label>
+                    <div class="grid grid-cols-3 gap-4">
+                        <button onclick="setRiskPreference('conservative')" id="conservative" class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            Conservative
+                        </button>
+                        <button onclick="setRiskPreference('normal')" id="normal" class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            Normal
+                        </button>
+                        <button onclick="setRiskPreference('aggressive')" id="aggressive" class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            Aggressive
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Display -->
+                <div class="mt-8 p-4 bg-gray-50 rounded-lg">
+                    <h2 class="text-lg font-semibold mb-2">Calculated Risk</h2>
+                    <div class="text-3xl font-bold text-blue-600" id="riskResult">
+                        0.00%
+                    </div>
+                </div>
+            </div>
+
+            <!-- Information Card -->
+            <div class="card p-6">
+                <h3 class="text-lg font-semibold mb-2">About the Calculator</h3>
+                <ul class="space-y-2 text-sm text-gray-600">
+                    <li>• Conservative base risk: 0.5%</li>
+                    <li>• Normal base risk: 1%</li>
+                    <li>• Aggressive base risk: 2%</li>
+                    <li>• Maximum risk is capped at 4%</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedRiskPreference = 'normal';
+        let baseRisk = 1;
+
+        function setRiskPreference(preference) {
+            selectedRiskPreference = preference;
+            
+            // Reset all buttons
+            document.querySelectorAll('button').forEach(btn => {
+                btn.classList.remove('bg-blue-500', 'text-white');
+            });
+            
+            // Highlight selected button
+            document.getElementById(preference).classList.add('bg-blue-500', 'text-white');
+            
+            // Set base risk
+            switch(preference) {
+                case 'conservative':
+                    baseRisk = 0.5;
+                    break;
+                case 'normal':
+                    baseRisk = 1;
+                    break;
+                case 'aggressive':
+                    baseRisk = 2;
+                    break;
+            }
+            
+            calculateAndDisplayRisk();
+        }
+
+        function calculateRisk(baseRisk, profitPercentage, drawdownPercentage) {
+            const riskPercentage = baseRisk * (1 + (profitPercentage - drawdownPercentage) * (0.1 * (1 + 3 * (profitPercentage / 10))));
+            return Math.min(riskPercentage, 4);
+        }
+
+        function calculateAndDisplayRisk() {
+            const capitalStatus = parseFloat(document.getElementById('capitalStatus').value) || 0;
+            const profitPercentage = Math.max(0, capitalStatus);
+            const drawdownPercentage = Math.max(0, -capitalStatus);
+            
+            const risk = calculateRisk(baseRisk, profitPercentage, drawdownPercentage);
+            document.getElementById('riskResult').textContent = `${risk.toFixed(2)}%`;
+        }
+
+        // Add event listeners
+        document.getElementById('capitalStatus').addEventListener('input', calculateAndDisplayRisk);
+        
+        // Set initial state
+        setRiskPreference('normal');
+    </script>
+</body>
+</html>
