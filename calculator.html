@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Risk Calculator</title>
+    <style>
+      :root {
+        --primary-color: #43617f; /* Blue color */
+        --background-color: #121212; /* Dark background */
+        --secondary-color: #1e1e1e; /* Slightly lighter dark */
+        --accent-color: #1f3d4a; /* Accent color */
+        --text-color: #ffffff; /* White text */
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 100vh;
+        padding-top: 80px;
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        width: 100%;
+        max-width: 1100px;
+        background-color: #000000; /* Black background */
+        border-radius: 25px;
+        position: fixed;
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        border: 3px solid var(--primary-color); /* Blue border around navbar */
+      }
+
+      .navbar-logo {
+        display: flex;
+        align-items: center;
+        color: var(--text-color);
+        font-size: 20px;
+      }
+
+      .navbar-logo img {
+        height: 30px;
+        margin-right: 10px;
+      }
+
+      .navbar-nav {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-grow: 1; /* Ensures the middle links are centered */
+      }
+
+      .navbar-nav a {
+        color: var(--text-color);
+        font-size: 16px;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+      }
+
+      .navbar-nav a:hover {
+        background-color: var(--accent-color);
+      }
+
+      /* Contact Button */
+      .navbar-contact {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .navbar-contact a {
+        color: var(--text-color);
+        font-size: 16px;
+        text-decoration: none;
+        padding: 10px 20px;
+        background-color: var(--primary-color);
+        border-radius: 20px;
+        transition: background-color 0.3s ease;
+        font-weight: bold;
+      }
+
+      .navbar-contact a:hover {
+        background-color: var(--accent-color);
+      }
+
+      /* Main Content Styles */
+      .container {
+        background-color: var(--background-color); /* Dark background */
+        border-radius: 25px;
+        padding: 30px;
+        width: 100%;
+        max-width: 1100px; /* Match the width of the navbar */
+        margin-top: 120px; /* To avoid overlap with navbar */
+        margin-bottom: 30px;
+        border: 3px solid var(--primary-color); /* Blue border */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      }
+
+      h2 {
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 20px;
+        color: var(--primary-color);
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        font-size: 14px;
+        margin-bottom: 8px;
+        display: block;
+        color: var(--text-color);
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 14px;
+        color: var(--text-color);
+        background-color: var(--secondary-color);
+        border: 1px solid var(--primary-color);
+        border-radius: 8px;
+        outline: none;
+        transition: border 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        background-color: var(--primary-color);
+        color: var(--text-color);
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      button:hover {
+        background-color: var(--accent-color);
+        box-shadow: 0 4px 10px var(--accent-color);
+      }
+
+      .results {
+        margin-top: 20px;
+        background-color: var(--background-color);
+        padding: 15px 20px;
+        border-radius: 10px;
+        border: 1px solid var(--primary-color);
+        text-align: center;
+      }
+
+      .results p {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 10px 0;
+        color: var(--primary-color);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .navbar {
+          padding: 10px 20px;
+        }
+
+        .navbar-logo {
+          font-size: 16px;
+        }
+
+        .navbar-nav {
+          flex-direction: column;
+          align-items: center;
+          gap: 15px;
+        }
+
+        .container {
+          width: 90%;
+          margin-top: 120px; /* Avoid navbar overlap on smaller screens */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="navbar">
+      <div class="navbar-logo">
+        <img src="logo.png" alt="Logo" />
+        <!-- Replace logo.png with your logo -->
+        <span>NAS-Tools</span>
+      </div>
+      <div class="navbar-nav">
+        <a href="#calculator">Calculator</a>
+        <a href="#simulator">Simulator</a>
+      </div>
+      <div class="navbar-contact">
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" id="calculator">
+      <h2>Calculate Your Risk</h2>
+      <form id="riskCalculatorForm">
+        <div class="form-group">
+          <label for="startingBalance">Starting Balance ($)</label>
+          <input
+            type="number"
+            id="startingBalance"
+            required
+            min="1"
+            step="0.01"
+            placeholder="Enter starting balance"
+          />
+        </div>
+        <div class="form-group">
+          <label for="currentBalance">Current Balance ($)</label>
+          <input
+            type="number"
+            id="currentBalance"
+            required
+            min="1"
+            step="0.01"
+            placeholder="Enter current balance"
+          />
+        </div>
+        <div class="form-group">
+          <label for="mode">Risk Mode</label>
+          <select id="mode" required>
+            <option value="conservative">Conservative</option>
+            <option value="normal" selected>Normal</option>
+            <option value="aggressive">Aggressive</option>
+          </select>
+        </div>
+        <button type="submit">Calculate Risk</button>
+      </form>
+      <div class="results" id="results" style="display: none">
+        <p>
+          <strong>Dynamic Risk Percentage:</strong>
+          <span id="riskPercentage"></span>%
+        </p>
+      </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+      function getRiskPercentage(startingBalance, currentBalance, mode) {
+        const profitPercentage = Math.max(
+          ((currentBalance - startingBalance) / startingBalance) * 100,
+          0
+        );
+        const drawdownPercentage = Math.max(
+          ((startingBalance - currentBalance) / startingBalance) * 100,
+          0
+        );
+
+        const baseRisk = {
+          conservative: 0.5,
+          normal: 1.0,
+          aggressive: 2.0,
+        };
+
+        const baseRiskValue = baseRisk[mode.toLowerCase()] || 1.0;
+        const riskPercentage =
+          baseRiskValue *
+          (1 +
+            (profitPercentage - drawdownPercentage) *
+              (0.1 * (1 + 3 * (profitPercentage / 10))));
+
+        return Math.min(riskPercentage, 4); // Cap at 4% maximum
+      }
+
+      document
+        .getElementById("riskCalculatorForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const startingBalance = parseFloat(
+            document.getElementById("startingBalance").value
+          );
+          const currentBalance = parseFloat(
+            document.getElementById("currentBalance").value
+          );
+          const mode = document.getElementById("mode").value;
+
+          if (!startingBalance || !currentBalance) {
+            alert("Please enter both starting and current balances.");
+            return;
+          }
+
+          const riskPercentage = getRiskPercentage(
+            startingBalance,
+            currentBalance,
+            mode
+          );
+
+          document.getElementById("riskPercentage").textContent =
+            riskPercentage.toFixed(2);
+          document.getElementById("results").style.display = "block";
+        });
+    </script>
+  </body>
+</html>
