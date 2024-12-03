@@ -1,109 +1,142 @@
-# 📊 Prop Firm Risk Calculator
+# 📊 PropTools: Risk Calculator & Profit Simulator
 
-A modern, user-friendly calculator that helps prop traders optimize their position sizing based on the Kelly Criterion and compound growth principles.
+A powerful set of tools designed for prop traders to optimize their position sizing and simulate trading outcomes. PropTools helps you manage risk with precision and plan your trading strategies for long-term success.
 
 ## 🌟 Live Demo
-Visit the calculator: [https://anas1412.github.io/propfirms-risk-calculator/](https://anas1412.github.io/propfirms-risk-calculator/)
+
+Visit PropTools: [PropTools Website](https://anas1412.github.io/proptools/)
 
 ## 📝 Description
-This risk calculator helps traders determine optimal position sizes based on their current performance and risk tolerance. It implements a modified version of the Kelly Criterion that accounts for:
-- Current profit/drawdown status
-- Individual risk tolerance levels
+
+PropTools combines two essential tools for traders:
+
+### **Risk Calculator** – Helps you determine the optimal risk percentage based on the Kelly Criterion and your personal risk tolerance.
+
+### **Profit Simulator** – Allows you to simulate various trading scenarios to visualize potential outcomes and fine-tune your strategy based on the **Risk Calculator Tool** provided.
+
+These tools are designed to help you balance risk, maximize returns, and build a sustainable trading career.
+
+### 🧮 Risk Calculator
+
+The **Risk Calculator** helps you calculate your dynamic risk percentage based on your current performance, profit/drawdown status, and individual risk preferences. It implements a modified version of the Kelly Criterion, adjusting for real trading conditions.
+
+### 🎮 Profit Simulator
+
+The **Profit Simulator** enables you to test different trading strategies in a simulated environment. You can experiment with various risk levels, position sizes, and trading scenarios to forecast your profit and loss over time.
+
+## 🎯 Features
+
+- **Risk Calculator:**
+
+  - Real-time risk calculations
+  - Three risk preference levels: Conservative, Normal, Aggressive
+  - Intuitive, responsive design
+
+- **Profit Simulator:**
+
+  - Simulate trading outcomes based on custom parameters
+  - Visualize gains and losses over time
+  - Adjustable risk tolerance and strategy settings
+
+- Interactive and user-friendly interface
+- Optimized for all devices
+
+## 💡 Theory Behind the Tools
+
+### Risk Calculator
+
+The Risk Calculator uses a modified version of the **Kelly Criterion**, which is a risk management formula that helps determine the optimal amount of capital to risk on each trade. The formula considers factors like:
+
+- Current profit or drawdown
+- Risk preference (Conservative, Normal, Aggressive)
 - Compound growth principles
 - Maximum risk constraints
 
-## 🧮 The Formula
-The calculator uses the following formula to determine risk percentage:
+### Profit Simulator
 
-```python
-risk_percentage = base_risk * (1 + (profit_percentage - drawdown_percentage) * (0.1 * (1 + 3 * (profit_percentage / 10))))
-```
-
-Where:
-- `base_risk`: Determined by risk preference
-  - Conservative: 0.5%
-  - Normal: 1%
-  - Aggressive: 2%
-- `profit_percentage`: Current profit (if positive)
-- `drawdown_percentage`: Current drawdown (if negative)
-- Maximum risk is capped at 4%
-
-## 🎯 Features
-- Real-time risk calculations
-- Three risk preference levels
-- Responsive design for all devices
-- Visual feedback and intuitive interface
-- Educational content about risk management principles
-
-## 💡 Theory Behind the Calculator
+The Profit Simulator helps you see the effects of different risk settings and trade outcomes over time, allowing you to optimize your strategies before live trading. It uses historical data and user-defined parameters to simulate realistic trading environments.
 
 ### Kelly Criterion
-The Kelly Criterion is a formula used in risk management that helps determine the optimal size of a series of investments or trades. The basic principle suggests that the optimal percentage of your capital to risk is:
+
+The Kelly Criterion is widely used in risk management for investments and trading. It aims to maximize the growth of capital while minimizing the risk of ruin. The formula is as follows:
 
 ```
 Kelly % = W - [(1-W)/R]
 ```
+
 Where:
+
 - W = Winning probability
 - R = Win/Loss ratio
 
-Our calculator modifies this based on actual trading performance rather than theoretical probabilities.
+### Compound Growth
 
-### Compound Effect
-The calculator implements compound growth principles by:
-1. Increasing risk gradually during profitable periods
-2. Reducing risk during drawdowns
-3. Using a progressive scaling factor based on performance
+The Risk Calculator applies the principles of compound growth to adjust risk based on your trading performance. During profitable periods, risk can be increased gradually, while it decreases during drawdowns, keeping your growth sustainable.
 
 ## 🛠️ Technologies Used
+
 - HTML5
 - Tailwind CSS
 - Vanilla JavaScript
 - No external dependencies required
 
-## 📦 Installation
-1. Clone the repository
-```bash
-git clone https://github.com/anas1412/risk-calculator.git
-```
-
-2. Open `index.html` in your browser
-
-Or simply deploy to GitHub Pages.
-
 ## 🔧 Usage
-1. Enter your current capital status (profit or drawdown percentage)
+
+### Risk Calculator:
+
+1. Enter your starting balance and current performance (profit or drawdown)
 2. Select your risk preference (Conservative, Normal, or Aggressive)
-3. View your calculated risk percentage
-4. Optional: Click "Learn About the Method" to understand the underlying principles
+3. Calculate your dynamic risk percentage
+
+### Profit Simulator:
+
+1. Select your starting capital, win rate % and number of trades
+2. Simulate your trading results over time
+3. Adjust settings to visualize different strategies
+
+### Optionally: Learn about the underlying principles of the tools for a deeper understanding of risk management.
 
 ## ⚠️ Risk Warning
-This calculator is meant to be used as a guideline only. Always:
+
+These tools are meant to assist in decision-making, but should not be used as the sole basis for live trading. Always:
+
 - Practice proper risk management
 - Never risk more than you can afford to lose
-- Consider your prop firm's specific rules and requirements
-- Use this tool as part of a comprehensive trading strategy
+- Follow your prop firm’s specific rules and guidelines
+- Incorporate these tools into a comprehensive trading strategy
 
 ## 🎓 Sources & Further Reading
+
 - [Kelly Criterion - Wikipedia](https://en.wikipedia.org/wiki/Kelly_criterion)
 - "Fortune's Formula" by William Poundstone
 - "The Mathematics of Money Management" by Ralph Vince
 
 ## 🤝 Contributing
-Contributions, issues, and feature requests are welcome! Feel free to check [issues page](https://github.com/anas1412/risk-calculator/issues).
+
+Contributions, issues, and feature requests are welcome! Feel free to check [issues page](https://github.com/anas1412/proptools/issues).
 
 ## 📄 License
+
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 👨‍💻 Author
-**anas1412**
+
+### Anas B.
+
+- Twitter (X) [@vaillainesthetic](https://x.com/vaillainesthetic)
 - GitHub: [@anas1412](https://github.com/anas1412)
 - Website: [anas1412.github.io](https://anas1412.github.io/)
 
+### Nydhal Gh.
+
+- Twitter (X) [@nyd_hal](https://x.com/nyd_hal)
+
 ## 🙏 Acknowledgments
+
 - Kelly Criterion for the foundational mathematical principles
 - Modern prop trading community for feedback and insights
 - All contributors and testers
 
 ---
+
 © 2024 anas1412. All rights reserved.
