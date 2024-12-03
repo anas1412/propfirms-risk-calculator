@@ -261,7 +261,7 @@ button:hover {
 
   .container {
     width: 90%;
-    margin-top: 90px; /* Avoid navbar overlap on smaller screens */
+    margin-top: 87px; /* Avoid navbar overlap on smaller screens */
   }
 
   .feature-card {
@@ -272,6 +272,7 @@ button:hover {
     width: 90%; /* Make it take up most of the width on mobile */
     position: static; /* Normal flow for mobile */
     margin-top: 15px; /* Add spacing after content */
+    margin-bottom: 15px; /* Add spacing after content */
     bottom: unset; /* Reset the bottom property */
   }
 }
